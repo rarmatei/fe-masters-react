@@ -1,26 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
+import App from './App';
 
-const ce = React.createElement;
-
-const MyTitle = function Hello(props) {
-  return ce('div', null, ce('h1', null, props.title));
+const renderApp = () => {
+  render(<App />, document.getElementById('app'));
 };
 
-const MyFirstComponent = function Hello2() {
-  return ce(
-    'div',
-    null,
-    ce(MyTitle, {
-      title: 'House of Cards'
-    }),
-    ce(MyTitle, {
-      title: 'Orange is the New Black'
-    }),
-    ce(MyTitle, {
-      title: 'Stranger Things'
-    })
-  );
-};
+renderApp();
 
-render(ce(MyFirstComponent), document.getElementById('app'));
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    renderApp();
+  });
+}
